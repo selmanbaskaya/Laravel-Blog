@@ -23,13 +23,10 @@
             @endif
         @endforeach
     </div>
+
     @include('front.widgets.categoryWidget')
     <div class="col-md-1"></div>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12 text-center">
-                Pagination
-            </div>
-        </div>
+    <div class="container text-center">
+        {{ $articles->links() }}
     </div>
 @endsection

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\Homepage;
 use App\Http\Controllers\Back\Dashboard;
 use App\Http\Controllers\Back\AuthController;
+use App\Http\Controllers\Back\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,7 @@ Route::prefix('admin')->name('admin.')->middleware('isLogin')->group(function ()
 
 Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function () {
     Route::get('panel', [Dashboard::class, 'index'])->name('dashboard');
+    Route::resource('makaleler', ArticleController::class);
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
 

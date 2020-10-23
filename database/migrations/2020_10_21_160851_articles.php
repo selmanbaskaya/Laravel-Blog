@@ -3,6 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Query\Expression;
+
 
 class Articles extends Migration
 {
@@ -20,7 +22,8 @@ class Articles extends Migration
             $table->string('image');
             $table->longText('content');
             $table->integer('hit')->default(0);
-            $table->Str::slug('slug');
+            $table->integer('status')->default(0);
+            $table->string('slug');
             $table->timestamps();
             //Relation
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

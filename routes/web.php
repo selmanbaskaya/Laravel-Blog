@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\Homepage;
 use App\Http\Controllers\Back\Dashboard;
+use App\Http\Controllers\Back\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,6 +12,7 @@ use App\Http\Controllers\Back\Dashboard;
 |
 */
 Route::get('admin/panel', [Dashboard::class, 'index'])->name('admin.dashboard');
+Route::get('admin/login', [Auth::class, 'login'])->name('admin.login');
 
 /*
 |--------------------------------------------------------------------------

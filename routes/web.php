@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Front\Homepage;
 use App\Http\Controllers\Back\Dashboard;
-use App\Http\Controllers\Back\Auth;
+use App\Http\Controllers\Back\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -11,8 +11,16 @@ use App\Http\Controllers\Back\Auth;
 |--------------------------------------------------------------------------
 |
 */
-Route::get('admin/panel', [Dashboard::class, 'index'])->name('admin.dashboard');
-Route::get('admin/login', [Auth::class, 'login'])->name('admin.login');
+Route::prefix('admin')->name('admin.')->middleware('isLogin')->group(function () {
+    Route::get('login', [AuthController::class, 'login'])->name('login');
+    Route::post('login', [AuthController::class, 'loginPost'])->name('login.post');
+});
+
+Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function () {
+    Route::get('panel', [Dashboard::class, 'index'])->name('dashboard');
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+});
+
 
 /*
 |--------------------------------------------------------------------------

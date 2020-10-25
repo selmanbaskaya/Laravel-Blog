@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Back;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Article;
 
 class CategoryController extends Controller
 {
@@ -54,6 +55,16 @@ class CategoryController extends Controller
         $category->slug = str_slug($request->slug);
         $category->save();
         toastr()->success('Kategori başarılı bir şekilde güncellendi');
+        return redirect()->back();
+    }
+
+    public function delete(Request $request) {
+        $category = Category::findOrFail($request->id);
+        if ($category->articleCount() > 0) {
+            Article::where('category_id', $category->id)->update(['category_id'=>1]);
+        }
+        $category->delete();
+        toastr()->success('Kategori başarılı bir şekilde silindi. ' . $category->articleCount() . ' makalenin yeni kategorisi `Genel` oldu!');
         return redirect()->back();
     }
 }

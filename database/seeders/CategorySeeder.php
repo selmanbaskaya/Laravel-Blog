@@ -15,7 +15,7 @@ class CategorySeeder extends Seeder
      */
     public function run()
     {
-        $categories=['Python', 'PHP - Laravel', 'Makine Öğrenmesi', 'Veri Yapıları', 'İşletim Sistemleri'];
+        $categories=['Genel', 'Python', 'PHP - Laravel', 'Makine Öğrenmesi', 'Veri Yapıları', 'İşletim Sistemleri'];
 
         foreach ($categories as $category) {
             DB::table('categories')->insert([

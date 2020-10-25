@@ -29,8 +29,11 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 - [X] Backend Template
 - [X] Adding&Listing Article
 - [X] Toastr added
-- [X] Update&Delete Article
+- [X] Updating&Deleting Article
 - [X] Adding&Listing Category
+- [X] Updating&Deleting Category
+- [X] Adding&Listing Pages
+- [X] Updating&Deleting Pages
 
 ## License
 

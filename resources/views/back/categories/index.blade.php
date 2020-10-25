@@ -49,7 +49,7 @@
                                     </td>
                                     <td>
                                         <a categoryId="{{ $category->id }}" class="btn btn-warning btn-sm m-2 editArticle" title="Kategoriyi Düzenle"><i class="fa fa-edit text-light"></i></a>
-                                        <a id="edit" class="btn btn-warning btn-sm" title="Kategoriyi Sil"><i class="fa fa-trash text-light"></i></a>
+                                        <a categoryId="{{ $category->id }}" categoryCount="{{ $category->articleCount() }}" class="btn btn-danger btn-sm m-2 removeArticle" title="Kategoriyi Sil"><i class="fa fa-trash text-light"></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -88,6 +88,27 @@
             </div>
         </div>
     </div>
+    <div class="modal" id="deleteModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Kategoriyi Sil</h4>
+                    <button class="close" type="button" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger" id="articleAlert"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">İptal Et</button>
+                    <form method="post" action="{{ route('admin.category.delete') }}">
+                        @csrf
+                        <input type="hidden" name="id" id="deleteId" />
+                        <button id="deleteButton" type="submit" class="btn btn-danger">Sil</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('css')
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
@@ -109,7 +130,28 @@
                         $('#editModal').modal();
                     }
                 })
-            })
+            });
+
+            $('.removeArticle').click(function () {
+                id = $(this)[0].getAttribute('categoryId');
+                count = $(this)[0].getAttribute('categoryCount');
+                if (id == 1) {
+                    $('#articleAlert').html('Genel kategorisi silinemez!');
+                    $('#deleteButton').hide();
+                    $('#deleteModal').modal();
+                    return;
+                }
+                $('#deleteButton').show();
+                $('#deleteId').val(id);
+                if (count > 0) {
+                    $('#articleAlert').html('Bu kategoriye ait ' + count + ' makale bulunmaktadır. Yine de silmek istedğinize emin misiniz?');
+                }
+                else {
+                    $('#articleAlert').html('Bu kategoriyi silmek istedğinize emin misiniz?');
+                }
+                $('#deleteModal').modal();
+            });
+
             $('.switchStatus').change(function() {
                 id = $(this)[0].getAttribute('categoryId');
                 status = $(this).prop('checked');

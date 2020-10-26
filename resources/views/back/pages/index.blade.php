@@ -6,19 +6,22 @@
             <h6 class="m-0 font-weight-bold text-primary"><strong>{{ $pages->count() }}</strong> adet makale mevcut
         </div>
         <div class="card-body">
+            <div id="orderSuccess" style="display: none" class="alert alert-success">Sıralama başarılı bir şekilde güncellendi.</div>
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
+                            <th>Sayfa Sıralaması</th>
                             <th>Fotoğraf</th>
                             <th>Başlık</th>
                             <th>Durum</th>
                             <th>İşlemler</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="orders">
                     @foreach($pages as $page)
-                        <tr>
+                        <tr id="page_{{ $page->id }}">
+                            <td class="text-center" style="width: 230px; max-height: 25px;"><i class="fa fa-arrows-alt-v fa-2x handle mt-4" style="cursor: move;"></i><span class="ml-3">Sürüklemek için icona tıkla</span></td>
                             <td><img class="img-thumbnail" src="{{ $page->image }}" width="150"></td>
                             <td>{{ $page->title }}</td>
                             <td>
@@ -53,5 +56,19 @@
                 });
             })
         })
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.12.0/dist/sortable.umd.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+    <script>
+        $('#orders').sortable({
+            handle:'.handle',
+            update:function () {
+                var orders = $('#orders').sortable('serialize');
+                $.get("{{ route('admin.page.orders') }}?"+orders, function (data, status) {
+                    $('#orderSuccess').show();
+                    setTimeout(function () { $('#orderSuccess').hide(); }, 2000);
+                });
+            }
+        });
     </script>
 @endsection

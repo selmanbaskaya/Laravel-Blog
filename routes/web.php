@@ -44,6 +44,7 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function ()
     Route::post('/sayfalar/guncelle/{id}', [PageController::class, 'updatePost'])->name('page.edit.post');
     Route::get('/sayfa/sil/{id}', [PageController::class, 'delete'])->name('page.delete');
     Route::get('/sayfa/switch', [PageController::class, 'switchStatus'])->name('page.switch');
+    Route::get('/sayfa/siralama', [PageController::class, 'orders'])->name('page.orders');
 
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });

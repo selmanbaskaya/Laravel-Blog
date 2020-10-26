@@ -15,6 +15,12 @@ class PageController extends Controller
         return view('back.pages.index', compact('pages'));
     }
 
+    public function orders(Request $request) {
+        foreach ($request->get('page') as $key => $order) {
+            Page::where('id', $order)->update(['order'=>$key]);
+        }
+    }
+
     public function create() {
         return view('back.pages.create');
     }

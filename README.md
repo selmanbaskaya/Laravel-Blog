@@ -34,6 +34,7 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 - [X] Updating&Deleting Category
 - [X] Adding&Listing Pages
 - [X] Updating&Deleting Pages
+- [X] Page Sorting with sortable.js
 
 ## License
 

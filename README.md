@@ -35,6 +35,8 @@ Laravel is accessible, powerful, and provides tools required for large, robust a
 - [X] Adding&Listing Pages
 - [X] Updating&Deleting Pages
 - [X] Page Sorting with sortable.js
+- [X] Added mailtrap.io
+- [X] Website Dynamic Config Page
 
 ## License
 

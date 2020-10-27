@@ -7,6 +7,7 @@ use App\Http\Controllers\Back\AuthController;
 use App\Http\Controllers\Back\ArticleController;
 use App\Http\Controllers\Back\CategoryController;
 use App\Http\Controllers\Back\PageController;
+use App\Http\Controllers\Back\ConfigConrtoller;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,7 @@ Route::prefix('admin')->name('admin.')->middleware('isAdmin')->group(function ()
     Route::get('/sayfa/switch', [PageController::class, 'switchStatus'])->name('page.switch');
     Route::get('/sayfa/siralama', [PageController::class, 'orders'])->name('page.orders');
 
+    Route::get('/ayarlar', [ConfigConrtoller::class, 'index'])->name('config.index');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 });
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Validator;
+use Mail;
 
 use App\Models\Category;
 use App\Models\Article;
@@ -63,16 +64,15 @@ class Homepage extends Controller
         $validate = Validator::make($request->post(), $rules);
 
         if ($validate->errors()) {
-            return redirect()->route('contact')->withErrors($this->validate())->withInput();
+            return redirect()->route('contact')->withErrors($validate)->withInput();
         }
 
-
-        $contact = new Contact();
-        $contact->name=$request->name;
-        $contact->email=$request->email;
-        $contact->topic=$request->topic;
-        $contact->message=$request->message;
-        $contact->save();
+        Mail::send([], [], function ($message) {
+            $message->from('selmanbaskaya1@gmail.com', 'Selman Başkaya');
+            $message->to('selmanbaskaya1@gmail.com');
+            $message->setBody('Bu mail selman tarafından gönderildi <br />', 'text/html');
+            $message->subject('Laravel Blog');
+        });
 
         return redirect()->route('contact')->with('success', 'Mesajınız iletildi');
     }
